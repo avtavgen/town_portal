@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+    <h1>Welcome to Community</h1>
+    <h2>Posts</h2>
+    {% for post in posts %}
+{#        <a href="{% url "post-detail" pk=post.pk %}" target="_blank">{{post.title }}</a>#}
+        <p>
+            {{post.body }}
+        </p>
+        {% if request.user in post.upvotes.all %}
+            <a href="{% url "remove-upvote" link_pk=post.pk %}">Remove Upvote</a>
+        {% else %}
+            <a href="{% url "upvote-submission" link_pk=post.pk %}">Upvote</a>
+        {% endif %}
+        <br><i><a href="{% url "post-detail" pk=post.pk %}">Comments</a></i><br><br>
+
+    {% endfor %}
+{% endblock %}
